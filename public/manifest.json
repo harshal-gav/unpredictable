@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "Unpredictable Runner",
+    "version": "1.0",
+    "description": "Launch Unpredictable Runner in full screen",
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {},
+    "permissions": [
+        "tabs"
+    ]
+}

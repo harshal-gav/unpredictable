@@ -16,11 +16,26 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            storeFile file("my-release-key.jks")
+            storePassword "123456"
+            keyAlias "my-key-alias"
+            keyPassword "123456"
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    configurations.all {
+         resolutionStrategy {
+             force 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
+             force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
+         }
     }
 }
 
