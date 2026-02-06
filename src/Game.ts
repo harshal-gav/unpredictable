@@ -4,6 +4,7 @@ import { World } from './World';
 import { ObstacleManager } from './ObstacleManager';
 import { VFX, ParticleSystem } from './VFX';
 import { UIManager } from './UIManager';
+import { SoundManager } from './SoundManager';
 
 export class Game {
     scene: THREE.Scene;
@@ -15,6 +16,7 @@ export class Game {
     vfx: VFX;
     particles: ParticleSystem;
     ui: UIManager;
+    soundManager: SoundManager;
     clock: THREE.Clock;
 
     // Game State
@@ -62,7 +64,9 @@ export class Game {
         this.scene.add(dirLight);
 
         // COMPONENTS
-        this.player = new Player(this.scene);
+        // COMPONENTS
+        this.soundManager = new SoundManager();
+        this.player = new Player(this.scene, this.soundManager);
         this.world = new World(this.scene);
         this.obstacleManager = new ObstacleManager(this.scene);
         this.vfx = new VFX(this.renderer, this.scene, this.camera);
@@ -139,6 +143,7 @@ export class Game {
                 this.gameOver = true;
                 this.ui.showGameOver(this.score);
                 (this.player.mesh.material as THREE.MeshStandardMaterial).emissive.setHex(0xff0000);
+                this.soundManager.playCrash();
             }
         }
 
@@ -160,11 +165,13 @@ export class Game {
         this.ui.updateScore(this.score);
 
         this.particles.createBurst(gem.position, 0xff00cc);
+        this.soundManager.playCollect();
     }
 
     startGame() {
         this.isRunning = true;
         this.clock.start();
+        this.soundManager.playStart();
     }
 
     resetGame() {

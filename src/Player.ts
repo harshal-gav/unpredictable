@@ -27,7 +27,10 @@ export class Player {
     touchStartX: number = 0;
     touchStartY: number = 0;
 
-    constructor(scene: THREE.Scene) {
+    soundManager: any; // Using any to avoid circular type issues if simple, or import it.
+
+    constructor(scene: THREE.Scene, soundManager: any) {
+        this.soundManager = soundManager;
         const geometry = new THREE.BoxGeometry(1, this.originalHeight, 1);
         // Bevel geometry could be better for highlights
         const material = new THREE.MeshStandardMaterial({
@@ -100,6 +103,7 @@ export class Player {
         if (newLane >= -1 && newLane <= 1) {
             this.lane = newLane;
             this.targetX = this.lane * this.laneWidth;
+            this.soundManager.playSwipe();
         }
     }
 
@@ -107,6 +111,7 @@ export class Player {
         if (this.isGrounded && !this.isSliding) {
             this.velocity.y = this.jumpForce;
             this.isGrounded = false;
+            this.soundManager.playJump();
         }
     }
 
@@ -119,6 +124,7 @@ export class Player {
         // Squash mesh
         this.mesh.scale.set(1, 0.5, 1);
         this.mesh.position.y = 0.5; // Adjust position to keep on ground
+        this.soundManager.playSlide();
     }
 
     endSlide() {
