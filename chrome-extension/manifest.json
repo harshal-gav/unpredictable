@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "Unpredictable Runner",
+    "version": "1.0",
+    "description": "Launch Unpredictable Runner directly in a new tab.",
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {},
+    "icons": {
+        "128": "icon.svg"
+    }
+}

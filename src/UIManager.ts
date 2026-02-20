@@ -58,6 +58,23 @@ export class UIManager {
         window.addEventListener('touchstart', handler);
     }
 
+    onFullscreen() {
+        const btn = document.getElementById('btn-fullscreen');
+        if (btn) {
+            btn.onclick = () => {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => {
+                        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                    });
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    }
+                }
+            };
+        }
+    }
+
     onRetry(callback: () => void) {
         document.getElementById('btn-retry')!.onclick = () => {
             this.hideGameOver();

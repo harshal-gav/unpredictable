@@ -83,6 +83,7 @@ export class Game {
         this.ui.onStart(() => this.startGame());
         this.ui.onRetry(() => this.resetGame());
         this.ui.onWatchAd(() => this.continueGame());
+        this.ui.onFullscreen();
 
         this.animate();
     }
