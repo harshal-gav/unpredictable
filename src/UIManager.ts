@@ -38,6 +38,14 @@ export class UIManager {
         this.gameOverScreen.style.display = 'flex';
         this.hud.style.display = 'none';
         this.finalScoreEl.textContent = Math.floor(score).toString();
+
+        // Push AdSense Request when screen becomes visible
+        try {
+            // @ts-ignore - adsbygoogle is loaded via external script
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+            console.error("AdSense Error: ", e);
+        }
     }
 
     hideGameOver() {
